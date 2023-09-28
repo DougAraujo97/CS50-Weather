@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <div class="mx-auto mb-3">
+        <p class="location">{{ location }}</p>
+    </div>
+    <div class="cards">
+        <div class="card current_forecast pt-3 mb-3" id="today_card">
+            <ul>
+                <li class="current_temp"><span class="temp" celsius>{{ temp }}</span> <span class="temp_unit">°C</span></li>
+                <div class="total_info_container">
+                    <div class="info_container">
+                        <div class="temp_container">
+                            <li class="info maxtemp">High: <span class="temp" celsius>{{ maxtemp }}</span> <span class="temp_unit">°C</span></li>
+                            <li class="info mintemp">Low: <span class="temp" celsius>{{ mintemp }}</span> <span class="temp_unit">°C</span></li>
+                        </div>
+                        <div class="sunrise_container">
+                            <li class="info">Sunrise: {{ sunrise }}</li>
+                            <li class="info">Sunset: {{ sunset }}</li>
+                        </div>
+                    </div>
+                    <div class="additional_info_container">
+                        <li class="info">Chance of Rain: {{ precipitation_chance }}%</li>
+                        <li class="info">Windspeed: {{ windspeed }}km/h</li>
+                    </div>
+                </div>
+            </ul>
+        </div>
+        {% for i in range(4) %}
+            <div class="card five_day_forecast ten_day_forecast pt-3 mb-3" closed>
+                <ul>
+                    <li class="info maxtemps other_day_temp"><span class="temp" celsius>{{ maxtemps[-2 - i] }}</span> <span class="temp_unit">°C</span></li>
+                    <li class="date">{{ sunrises[-2 - i][5:10] }}</li>
+                    <div class="total_info_container">
+                        <div class="info_container">
+                            <div class="temp_container">
+                                <li class="info mintemps">Low: <span class="temp" celsius>{{ mintemps[-2 - i] }}</span> <span class="temp_unit">°C</span></li>
+                            </div>
+                            <div class="sunrise_container">
+                                <li class="info">Sunrise: {{ sunrises[-2 - i][11:] }}</li>
+                                <li class="info">Sunset: {{ sunsets[-2 - i][11:] }}</li>
+                            </div>
+                        </div>
+                        <div class="additional_info_container">
+                            <li class="info">Chance of Rain: {{ precipitation_chances[-2 - i] }}%</li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        {% endfor %}
+        {% for i in range(5) %}
+            <div class="card ten_cards ten_day_forecast pt-3 mb-3" closed>
+                <ul>
+                    <li class="info maxtemps other_day_temp"><span class="temp" celsius>{{ maxtemps[-6 - i] }}</span> <span class="temp_unit">°C</span></li>
+                    <li class="date">{{ sunrises[-6 - i][5:10] }}</li>
+                    <div class="total_info_container">
+                        <div class="info_container">
+                            <div class="temp_container">
+                                <li class="info mintemps">Low: <span class="temp" celsius>{{ mintemps[-6 - i] }}</span> <span class="temp_unit">°C</span></li>
+                            </div>
+                            <div class="sunrise_container">
+                                <li class="info">Sunrise: {{ sunrises[-6 - i][11:] }}</li>
+                                <li class="info">Sunset: {{ sunsets[-6 - i][11:] }}</li>
+                            </div>
+                        </div>
+                        <div class="additional_info_container">
+                            <li class="info">Chance of Rain: {{ precipitation_chances[-6 - i] }}%</li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
